@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -17,17 +18,20 @@ public class Player : MonoBehaviour {
     private Animator animator;
     private Transform cameraTransform;
 
-    private void Start() {
+    private void Start()
+    {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         SetState(PlayerState.Idle);
         cameraTransform = Camera.main.transform;
     }
 
-    void Update() {
+    void Update()
+    {
         groundedPlayer = controller.isGrounded;
-     
-        if (groundedPlayer && playerVelocity.y < 0) {
+
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
             //playerVelocity.y = 0f;
         }
 
@@ -41,27 +45,35 @@ public class Player : MonoBehaviour {
         Vector3 displacement = move * Time.deltaTime * playerSpeed;
         controller.Move(displacement);
 
-        if (move != Vector3.zero) {
+        if (move != Vector3.zero)
+        {
             gameObject.transform.forward = move;
         }
-        
-        if (Input.GetButtonDown("Jump") && groundedPlayer) {
+
+        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        {
             //playerVelocity.y = 0f;
             Debug.Log("Salta Amy, salta");
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             SetState(PlayerState.Jump);
-        } else if(groundedPlayer) {
-            if(move == Vector3.zero) {
+        }
+        else if (groundedPlayer)
+        {
+            if (move == Vector3.zero)
+            {
                 SetState(PlayerState.Idle);
-            } else {
+            }
+            else
+            {
                 SetState(PlayerState.Run);
             }
         }
-       
+
 
         playerVelocity.y += gravityValue * Time.deltaTime;
-  
-        if(playerVelocity.y < 0 && !  groundedPlayer) {
+
+        if (playerVelocity.y < 0 && !groundedPlayer)
+        {
             SetState(PlayerState.Fall);
         }
 
@@ -69,8 +81,10 @@ public class Player : MonoBehaviour {
     }
 
 
-    private void SetState(PlayerState newState) {
-        if(state != newState ) {
+    private void SetState(PlayerState newState)
+    {
+        if (state != newState)
+        {
             animator.ResetTrigger("Idle");
             animator.ResetTrigger("Run");
             animator.ResetTrigger("Jump");
@@ -80,10 +94,11 @@ public class Player : MonoBehaviour {
         }
     }
 
-    
+
 }
 
-public enum PlayerState {
+public enum PlayerState
+{
     Idle,
     Run,
     Jump,

@@ -142,4 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb035fd488d9764c830dfa3994bb1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materials: []
+  thingMaterials:
+  - {fileID: 2100000, guid: 14201cbf348f48049a097f54c18688df, type: 2}
+  - {fileID: 2100000, guid: b33f65d42715194458a3231cd713eea0, type: 2}
+  - {fileID: 2100000, guid: 10d9e565582fab84e87662c1656cfc03, type: 2}
+  - {fileID: 2100000, guid: f8e6f34868adf4a40a50a72eb2ce5e6d, type: 2}
+  - {fileID: 2100000, guid: 194cc4ff39e76a34d9691a5a2b6c9322, type: 2}
+  - {fileID: 2100000, guid: 1c8991bebe774a24aa72d6b113c935ed, type: 2}
