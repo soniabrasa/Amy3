@@ -8,6 +8,7 @@ TagManager:
   - TeleTransporter
   - DoorCloser
   - DoorOpener
+  - TranslateFloorUp
   layers:
   - Default
   - TransparentFX

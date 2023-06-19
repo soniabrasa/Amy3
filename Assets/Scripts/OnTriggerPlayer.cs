@@ -18,11 +18,11 @@ public class OnTriggerPlayer : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // // Collider teletransporte
-        // if (other.gameObject.CompareTag("TraslateFloorUp"))
-        // {
-        //     GetComponent<TranslateFloorUp>().Translate();
-        // }
+        // Collider teletransporte
+        if (other.gameObject.CompareTag("TranslateFloorUp"))
+        {
+            GetComponent<TranslateFloorUp>().Translate();
+        }
 
         if (other.gameObject.CompareTag("DoorCloser"))
         {

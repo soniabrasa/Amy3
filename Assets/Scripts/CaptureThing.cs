@@ -44,8 +44,7 @@ public class CaptureThing : MonoBehaviour
 
             if (myThing != null)
             {
-
-                if (SearchRecicleBin())
+                if (SearchTeleTransporter())
                 {
                     ThingDown();
                 }
@@ -57,11 +56,6 @@ public class CaptureThing : MonoBehaviour
             // Debug.Log($"{gameObject.name}.My thing {myThing.name}");
             ThingUp();
         }
-
-        // else
-        // {
-        //     // Debug.Log($"{gameObject.name}.My thing NULL");
-        // }
     }
 
     void LightHouseOn(Material material)
@@ -137,7 +131,7 @@ public class CaptureThing : MonoBehaviour
         return null;
     }
 
-    bool SearchRecicleBin()
+    bool SearchTeleTransporter()
     {
         RaycastHit hit;
 
@@ -167,7 +161,5 @@ public class CaptureThing : MonoBehaviour
 
         // Para ver el Raycast en modo play en la pestaña Scene (Gizmos)
         Debug.DrawRay(origin, direction * maxDistance, Color.red);
-
-        // return null;
     }
 }
