@@ -24,7 +24,7 @@ public class Shelf : MonoBehaviour
 
     public void SpawnThing(int numThing)
     {
-        Debug.Log($"{gameObject.name}.SpawnThing({numThing})");
+        // Debug.Log($"{gameObject.name}.SpawnThing({numThing})");
 
         Vector3 thingPosition = transform.position;
 
@@ -32,7 +32,7 @@ public class Shelf : MonoBehaviour
         thingPosition.y += initThingPositionY
             + nextThingPositionY * things.Count;
 
-        Debug.Log($"\t Position Thing {thingPosition}");
+        // Debug.Log($"\t Position Thing {thingPosition}");
 
         // Instantiate(Object original, Vector3 position, Quaternion rotation);
         GameObject thing = Instantiate(thingPrefab, thingPosition, Quaternion.identity);
@@ -42,6 +42,24 @@ public class Shelf : MonoBehaviour
         // Para que las things se aniden en este GameObject
         thing.transform.parent = transform;
 
+        // Agregar la thing a la lista
         things.Add(thing);
+    }
+
+    public GameObject DameThing()
+    {
+        Debug.Log($"{gameObject.name}.DameThing");
+
+        if (things.Count > 0)
+        {
+            GameObject thing = things[things.Count - 1];
+            things.RemoveAt(things.Count - 1);
+            return thing;
+        }
+
+        else
+        {
+            return null;
+        }
     }
 }
