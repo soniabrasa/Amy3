@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CaptureThing : MonoBehaviour
 {
+    public delegate void OnThingUpDelegate();
+    public OnThingUpDelegate OnThingUp;
+
+    DoorMovement doorMovement;
+
     GameObject myThing;
 
     GameObject lightHouse;
@@ -37,27 +42,22 @@ public class CaptureThing : MonoBehaviour
                     {
                         myThing = shelf.GetComponent<Shelf>().DameThing();
                         hasThing = true;
-                        // ThingUp();
-
-
-                        Debug.Log($"\t My thing {myThing.name}");
+                        ThingUp();
                     }
                 }
             }
         }
 
-        if (myThing != null)
-        {
-            // Debug.Log($"{gameObject.name}.My thing {myThing.name}");
-            ThingUp();
-            Material m = myThing.GetComponentInChildren<MeshRenderer>().material;
-            LightHouseOn(m);
-        }
+        // if (myThing != null)
+        // {
+        //     // Debug.Log($"{gameObject.name}.My thing {myThing.name}");
+        //     // ThingUp();
+        // }
 
-        else
-        {
-            // Debug.Log($"{gameObject.name}.My thing NULL");
-        }
+        // else
+        // {
+        //     // Debug.Log($"{gameObject.name}.My thing NULL");
+        // }
     }
 
     void LightHouseOn(Material material)
@@ -70,10 +70,36 @@ public class CaptureThing : MonoBehaviour
     {
         Debug.Log($"{gameObject.name}.ThingUp({myThing.name})");
 
-        myThing.transform.parent = transform;
-        // myThing.GetComponent<Rigidbody>().isKinematic = true;
-        myThing.transform.localPosition = pointTransportingThing;
-        myThing.transform.localRotation = Quaternion.identity;
+        if (myThing != null)
+        {
+            // Transporting
+
+            myThing.transform.parent = transform;
+            // myThing.GetComponent<Rigidbody>().isKinematic = true;
+            myThing.transform.localPosition = pointTransportingThing;
+            myThing.transform.localRotation = Quaternion.identity;
+
+            // LightHouse
+            Material m = myThing.GetComponentInChildren<MeshRenderer>().material;
+            LightHouseOn(m);
+
+            // Delegate
+
+            // Si hay suscriptores al Delegate
+            if (OnThingUp != null)
+            {
+                // Se anuncia que Amy tiene una thing
+
+                OnThingUp();
+            }
+
+            // doorMovement.OpenDoor();
+        }
+
+        else
+        {
+            Debug.Log($"ERROR {gameObject.name}.ThingUp() IS NULL");
+        }
     }
 
     void ThingDown()

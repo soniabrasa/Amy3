@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Shelf
   - TeleTransporter
+  - DoorCloser
+  - DoorOpener
   layers:
   - Default
   - TransparentFX
