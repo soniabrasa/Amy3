@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class CaptureThing : MonoBehaviour
 {
-    public delegate void OnThingUpDelegate();
-    public OnThingUpDelegate OnThingUp;
-
-    DoorMovement doorMovement;
-
+    public DoorMovement doorMovement;
     GameObject myThing;
 
     GameObject lightHouse;
@@ -42,17 +38,25 @@ public class CaptureThing : MonoBehaviour
                     {
                         myThing = shelf.GetComponent<Shelf>().DameThing();
                         hasThing = true;
-                        ThingUp();
                     }
+                }
+            }
+
+            if (myThing != null)
+            {
+
+                if (SearchRecicleBin())
+                {
+                    ThingDown();
                 }
             }
         }
 
-        // if (myThing != null)
-        // {
-        //     // Debug.Log($"{gameObject.name}.My thing {myThing.name}");
-        //     // ThingUp();
-        // }
+        if (myThing != null)
+        {
+            // Debug.Log($"{gameObject.name}.My thing {myThing.name}");
+            ThingUp();
+        }
 
         // else
         // {
@@ -83,17 +87,8 @@ public class CaptureThing : MonoBehaviour
             Material m = myThing.GetComponentInChildren<MeshRenderer>().material;
             LightHouseOn(m);
 
-            // Delegate
-
-            // Si hay suscriptores al Delegate
-            if (OnThingUp != null)
-            {
-                // Se anuncia que Amy tiene una thing
-
-                OnThingUp();
-            }
-
-            // doorMovement.OpenDoor();
+            // Apertura puertas public DoorMovement
+            doorMovement.OpenDoor();
         }
 
         else
@@ -105,6 +100,10 @@ public class CaptureThing : MonoBehaviour
     void ThingDown()
     {
         Debug.Log($"{gameObject.name}.ThingDown({myThing.name})");
+
+        Destroy(myThing);
+        lightHouse.SetActive(false);
+        hasThing = false;
     }
 
     Transform SearchShelf()
@@ -136,5 +135,39 @@ public class CaptureThing : MonoBehaviour
         Debug.DrawRay(origin, direction * maxDistance, Color.red);
 
         return null;
+    }
+
+    bool SearchRecicleBin()
+    {
+        RaycastHit hit;
+
+        // Altura del objeto
+        float objectH = 0.4f;
+
+        Vector3 origin = transform.position
+            + transform.forward * 0.1f
+            + transform.up * objectH;
+
+        Vector3 direction = transform.forward;
+
+        float maxDistance = 0.5f;
+
+        if (Physics.Raycast(origin, direction, out hit, maxDistance))
+        {
+            if (hit.collider.gameObject.CompareTag("TeleTransporter"))
+            {
+                Debug.Log($"{gameObject.name}.SearchTeleTransporter({hit.collider.gameObject.name})");
+
+                return true;
+            }
+            return false;
+        }
+
+        return false;
+
+        // Para ver el Raycast en modo play en la pestaña Scene (Gizmos)
+        Debug.DrawRay(origin, direction * maxDistance, Color.red);
+
+        // return null;
     }
 }

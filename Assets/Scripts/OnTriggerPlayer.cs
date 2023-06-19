@@ -16,20 +16,21 @@ public class OnTriggerPlayer : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        // se controla si el player colisiono con el transportador de las escaleras
-        if (other.gameObject.CompareTag("TraslateFloorUp"))
+        // // Collider teletransporte
+        // if (other.gameObject.CompareTag("TraslateFloorUp"))
+        // {
+        //     GetComponent<TranslateFloorUp>().Translate();
+        // }
+
+        if (other.gameObject.CompareTag("DoorCloser"))
         {
-            GetComponent<TranslateFloorUp>().Translate();
-        }
-        // se controla si el player colisiono con el collider para cerrar puertas
-        if (other.gameObject.CompareTag("CloserDoor"))
-        {
+            Debug.Log($"{gameObject.name}.OnTriggerEnter({other.gameObject.name})");
             other.gameObject.GetComponentInParent<DoorMovement>().CloseDoor();
         }
-        // se controla si el player colisiono con el collider para abrirr puertas
-        if (other.gameObject.CompareTag("OpenerDoor"))
+
+        if (other.gameObject.CompareTag("DoorOpener"))
         {
             other.gameObject.GetComponentInParent<DoorMovement>().OpenDoor();
         }
