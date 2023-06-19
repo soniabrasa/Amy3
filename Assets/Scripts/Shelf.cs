@@ -53,6 +53,9 @@ public class Shelf : MonoBehaviour
         if (things.Count > 0)
         {
             GameObject thing = things[things.Count - 1];
+
+            Debug.Log($"{gameObject.name}.DameThing({thing.name})");
+
             things.RemoveAt(things.Count - 1);
             return thing;
         }

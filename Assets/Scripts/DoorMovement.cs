@@ -38,6 +38,7 @@ public class DoorMovement : MonoBehaviour
             if (openDoor)
             {
                 Debug.Log($"{gameObject.name}.Update OpenDoor = {openDoor}");
+
                 leftDoor.position = Vector3.Lerp(
                     leftDoorClosedPoint.position,
                     leftDoorOpenedPoint.position,
@@ -51,6 +52,8 @@ public class DoorMovement : MonoBehaviour
 
             else
             {
+                Debug.Log($"{gameObject.name}.Update CloseDoor = {openDoor}");
+
                 leftDoor.position = Vector3.Lerp(
                     leftDoorOpenedPoint.position,
                     leftDoorClosedPoint.position,

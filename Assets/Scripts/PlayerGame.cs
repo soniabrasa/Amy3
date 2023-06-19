@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CaptureThing : MonoBehaviour
+public class PlayerGame : MonoBehaviour
 {
     public DoorMovement doorMovement;
-    GameObject myThing;
 
     GameObject lightHouse;
+    GameObject myThing;
+
 
     Vector3 pointTransportingThing;
     bool hasThing;
@@ -154,12 +155,33 @@ public class CaptureThing : MonoBehaviour
 
                 return true;
             }
+
             return false;
+            // Para ver el Raycast en modo play en la pestaña Scene (Gizmos)
+            // Debug.DrawRay(origin, direction * maxDistance, Color.red);
         }
 
         return false;
+    }
 
-        // Para ver el Raycast en modo play en la pestaña Scene (Gizmos)
-        Debug.DrawRay(origin, direction * maxDistance, Color.red);
+    void OnTriggerEnter(Collider other)
+    {
+        // Collider teletransporte
+        if (other.gameObject.CompareTag("TranslateFloorUp"))
+        {
+            GetComponent<TranslateFloorUp>().Translate();
+        }
+
+        if (other.gameObject.CompareTag("DoorCloser"))
+        {
+            Debug.Log($"{gameObject.name}.OnTriggerEnter({other.gameObject.name})");
+            other.gameObject.GetComponentInParent<DoorMovement>().CloseDoor();
+            // inputDoor.OpenDoor();
+        }
+
+        if (other.gameObject.CompareTag("DoorOpener"))
+        {
+            other.gameObject.GetComponentInParent<DoorMovement>().OpenDoor();
+        }
     }
 }
