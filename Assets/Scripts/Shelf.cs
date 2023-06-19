@@ -56,7 +56,7 @@ public class Shelf : MonoBehaviour
 
             Debug.Log($"{gameObject.name}.DameThing({thing.name})");
 
-            things.RemoveAt(things.Count - 1);
+            things.Remove(thing);
             return thing;
         }
 
